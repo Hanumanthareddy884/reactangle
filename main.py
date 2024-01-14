@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from typing import List, Tuple
+from typing import List
 
 app = FastAPI()
 
@@ -43,12 +43,14 @@ def find_largest_rectangle(matrix):
                     histogram[j] += 1
                 else:
                     histogram[j] = 0
+
                 current_area = largest_rectangle_area(histogram)
                 if current_area > max_area:
                     max_area = current_area
                     similar_number = num
 
     return similar_number,max_area
+
 @app.post("/largest_rectangle",tags=["Largest Rectangle in Matrix"])
 async def largest_rectangle(matrix: List[List[int]]):
     try:
