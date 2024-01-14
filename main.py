@@ -47,7 +47,8 @@ def find_largest_rectangle(matrix):
 
     return max_area
 @app.post("/largest_rectangle",tags=["Largest Rectangle in Matrix"])
-async def calculate_largest_rectangle(matrix: List[List[int]]):
+async def largest_rectangle(matrix: List[List[int]]):
+
     if len(matrix) >100:
         return {"Error":"The matrix must have only 100 rows and 100 columns."}
     try:
@@ -55,3 +56,5 @@ async def calculate_largest_rectangle(matrix: List[List[int]]):
         return {"Largest rectangle = ": result}
     except HTTPException as e:
         return e
+
+
