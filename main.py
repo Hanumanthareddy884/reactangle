@@ -30,11 +30,8 @@ def find_largest_rectangle(matrix):
     rows = len(matrix)
     cols = len(matrix[0])
 
-    # for row in matrix:
-    #     if len(row) != cols:
-    #         raise HTTPException(status_code=400, detail="Invalid matrix")
-
     max_area = 0
+    similar_number = None
     for num in set(x for row in matrix for x in row):
         histogram = [0] * cols
         for i in range(rows):
@@ -45,9 +42,12 @@ def find_largest_rectangle(matrix):
                     histogram[j] += 1
                 else:
                     histogram[j] = 0
-            max_area = max(max_area, largest_rectangle_area(histogram))
+                current_area = largest_rectangle_area(histogram)
+                if current_area > max_area:
+                    max_area = current_area
+                    similar_number = num
 
-    return max_area
+    return similar_number,max_area
 @app.post("/largest_rectangle",tags=["Largest Rectangle in Matrix"])
 async def largest_rectangle(matrix: List[List[int]]):
 
