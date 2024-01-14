@@ -24,21 +24,23 @@ def largest_rectangle_area(heights):
     return max_area
 
 def find_largest_rectangle(matrix):
-    if not matrix or not matrix[0]:
-        raise HTTPException(status_code=400, detail="Invalid matrix")
+    if 100 < len(matrix) or len(matrix[0]) > 100:
+        raise HTTPException(status_code=400, detail="Empty matrix")
 
     rows = len(matrix)
     cols = len(matrix[0])
 
-    for row in matrix:
-        if len(row) != cols:
-            raise HTTPException(status_code=400, detail="Invalid matrix")
+    # for row in matrix:
+    #     if len(row) != cols:
+    #         raise HTTPException(status_code=400, detail="Invalid matrix")
 
     max_area = 0
     for num in set(x for row in matrix for x in row):
         histogram = [0] * cols
         for i in range(rows):
             for j in range(cols):
+                if len(matrix[i])<=j:
+                    continue
                 if matrix[i][j] == num:
                     histogram[j] += 1
                 else:
