@@ -55,7 +55,7 @@ async def largest_rectangle(matrix: List[List[int]]):
         return {"Error":"The matrix must have only 100 rows and 100 columns."}
     try:
         result = find_largest_rectangle(matrix)
-        return {"Largest rectangle = ": result}
+        return {"Largest rectangle = ": '({},{})'.format(result[0], result[1])}
     except HTTPException as e:
         return e
 
