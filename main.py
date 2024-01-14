@@ -32,7 +32,7 @@ def find_largest_rectangle(matrix):
 
     max_area = 0
     similar_number = None
-    
+
     for num in set(x for row in matrix for x in row):
         histogram = [0] * cols
         for i in range(rows):
