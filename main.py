@@ -25,13 +25,14 @@ def largest_rectangle_area(heights):
 
 def find_largest_rectangle(matrix):
     if 100 < len(matrix) or len(matrix[0]) > 100:
-        raise HTTPException(status_code=400, detail="Empty matrix")
+        raise HTTPException(status_code=400, detail="The matrix must have only 100 rows and columns")
 
     rows = len(matrix)
     cols = len(matrix[0])
 
     max_area = 0
     similar_number = None
+    
     for num in set(x for row in matrix for x in row):
         histogram = [0] * cols
         for i in range(rows):
@@ -50,9 +51,6 @@ def find_largest_rectangle(matrix):
     return similar_number,max_area
 @app.post("/largest_rectangle",tags=["Largest Rectangle in Matrix"])
 async def largest_rectangle(matrix: List[List[int]]):
-
-    if len(matrix) >100:
-        return {"Error":"The matrix must have only 100 rows and 100 columns."}
     try:
         result = find_largest_rectangle(matrix)
         return {"Largest rectangle = ": '({},{})'.format(result[0], result[1])}
