@@ -3,6 +3,18 @@ from typing import List
 
 app = FastAPI()
 
+def is_valid_matrix(matrix: List[List[int]]) -> bool:
+    if not matrix or not matrix[0]:
+        return False
+
+    for row in matrix:
+        if len(row) != len(matrix[0]):
+            return False
+        for elem in row:
+            if not isinstance(elem, int) and elem is not None:
+                return False
+    return True
+
 def largest_rectangle_area(heights):
     stack = []
     max_area = 0
@@ -24,6 +36,7 @@ def largest_rectangle_area(heights):
     return max_area
 
 def find_largest_rectangle(matrix):
+    # Check the rows and cols greaterthan 100 in matrix
     if 100 < len(matrix) or len(matrix[0]) > 100:
         raise HTTPException(status_code=400, detail="The matrix must have only 100 rows and columns")
 
@@ -37,7 +50,7 @@ def find_largest_rectangle(matrix):
         histogram = [0] * cols
         for i in range(rows):
             for j in range(cols):
-                if len(matrix[i])<=j:
+                if len(matrix[i])<=j: #  cols length matched to all rows not matched exist current loop
                     continue
                 if matrix[i][j] == num:
                     histogram[j] += 1
